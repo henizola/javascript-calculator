@@ -13,7 +13,20 @@ import {
 } from "./App.styles";
 
 function App() {
-  const [total, setTotal] = useState(0);
+  const [evaluated, setEvaluated] = useState(0);
+  const [total, setTotal] = useState("0");
+
+  const handleClick = (event) => {
+    total === "0"
+      ? setTotal(event.target.innerHTML)
+      : setTotal(total.concat(event.target.innerHTML));
+  };
+  const setTotalValue = () => {
+    setTotal(eval(total));
+  };
+  const setDefault = () => {
+    setTotal("0");
+  };
   return (
     <CalculatorContainer>
       <Display>
@@ -22,26 +35,26 @@ function App() {
         </h1>
       </Display>
       <Calculator>
-        <Ac>AC</Ac>
+        <Ac onClick={setDefault}>AC</Ac>
 
-        <Multi>X</Multi>
-        <Opp>/</Opp>
+        <Multi onClick={handleClick}>*</Multi>
+        <Opp onClick={handleClick}>/</Opp>
         <NumbersContainer>
-          <Numbers>7</Numbers>
-          <Numbers>8</Numbers>
-          <Numbers>9</Numbers>
-          <Numbers>4</Numbers>
-          <Numbers>5</Numbers>
-          <Numbers>6</Numbers>
-          <Numbers>1</Numbers>
-          <Numbers>2</Numbers>
-          <Numbers>3</Numbers>
-          <Zero>0</Zero>
-          <Numbers>.</Numbers>
+          <Numbers onClick={handleClick}>7</Numbers>
+          <Numbers onClick={handleClick}>8</Numbers>
+          <Numbers onClick={handleClick}>9</Numbers>
+          <Numbers onClick={handleClick}>4</Numbers>
+          <Numbers onClick={handleClick}>5</Numbers>
+          <Numbers onClick={handleClick}>6</Numbers>
+          <Numbers onClick={handleClick}>1</Numbers>
+          <Numbers onClick={handleClick}>2</Numbers>
+          <Numbers onClick={handleClick}>3</Numbers>
+          <Zero onClick={handleClick}>0</Zero>
+          <Numbers onClick={handleClick}>.</Numbers>
         </NumbersContainer>
-        <Opp>+</Opp>
-        <Opp>-</Opp>
-        <Equals>=</Equals>
+        <Opp onClick={handleClick}>+</Opp>
+        <Opp onClick={handleClick}>-</Opp>
+        <Equals onClick={setTotalValue}>=</Equals>
       </Calculator>
     </CalculatorContainer>
   );
