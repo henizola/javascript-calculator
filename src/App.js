@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Calculator,
   Numbers,
@@ -13,9 +13,14 @@ import {
 } from "./App.styles";
 
 function App() {
+  const [total, setTotal] = useState(0);
   return (
     <CalculatorContainer>
-      <Display />
+      <Display>
+        <h1 style={{ textAlign: "end", marginTop: "5px", marginRight: "10px" }}>
+          {total}
+        </h1>
+      </Display>
       <Calculator>
         <Ac>AC</Ac>
 

@@ -33,6 +33,8 @@ export const Numbers = styled.button`
   font-size: 45px;
   border: none;
   color: white;
+
+  font-family: "Nova Square", cursive;
   background-color: #7898a1;
   &:hover {
     color: black;
@@ -60,6 +62,7 @@ export const Ac = styled.button`
   font-weight: 500;
   font-size: 45px;
   color: white;
+  font-family: "Nova Square", cursive;
   &:hover {
     color: black;
     border: 1px solid white;
@@ -75,6 +78,8 @@ export const Zero = styled.button`
   border: none;
   color: white;
   background-color: #7898a1;
+
+  font-family: "Nova Square", cursive;
   &:hover {
     color: black;
     border: 1px solid white;
@@ -88,6 +93,8 @@ export const Equals = styled.button`
   font-weight: 500;
   font-size: 45px;
   color: white;
+
+  font-family: "Nova Square", cursive;
   &:hover {
     color: black;
     border: 1px solid white;
@@ -100,6 +107,8 @@ export const Opp = styled.button`
   font-weight: 500;
   font-size: 45px;
   color: white;
+
+  font-family: "Nova Square", cursive;
   &:hover {
     color: black;
     border: 1px solid white;
@@ -112,6 +121,8 @@ export const Multi = styled.button`
   font-weight: 500;
   font-size: 45px;
   color: white;
+
+  font-family: "Nova Square", cursive;
   &:hover {
     color: black;
     border: 1px solid white;
