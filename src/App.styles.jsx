@@ -2,15 +2,15 @@ import styled from "styled-components";
 export const CalculatorContainer = styled.div`
   display: grid;
   grid-template-rows: 100px 1fr;
-  height: 570px;
+  height: 600px;
   width: 420px;
   background-color: black;
   margin: auto;
-  margin-top: 45px;
+  margin-top: 15px;
 `;
 export const Calculator = styled.div`
   position: absolute;
-  margin-top: 57px;
+  margin-top: 80px;
   margin-left: 10px;
   width: 404px;
   height: 350px;
@@ -46,10 +46,12 @@ export const Display = styled.div`
   background-color: black;
   grid-column: span 4;
   grid-row: span 2;
-  height: 50px;
+  height: 80px;
   margin-left: 10px;
   margin-top: 5px;
   color: white;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Ac = styled.button`
@@ -127,4 +129,10 @@ export const Multi = styled.button`
     color: black;
     border: 1px solid white;
   }
+`;
+export const Total = styled.h2`
+  text-align: end;
+  margin-right: 10px;
+  margin-top: 0px;
+  color: orange;
 `;

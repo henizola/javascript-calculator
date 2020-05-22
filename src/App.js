@@ -10,6 +10,7 @@ import {
   Opp,
   CalculatorContainer,
   Multi,
+  Total,
 } from "./App.styles";
 
 function App() {
@@ -17,12 +18,13 @@ function App() {
   const [total, setTotal] = useState("0");
 
   const handleClick = (event) => {
+    console.log(typeof event.target.innerHTML);
     total === "0"
       ? setTotal(event.target.innerHTML)
       : setTotal(total.concat(event.target.innerHTML));
   };
   const setTotalValue = () => {
-    setTotal(eval(total));
+    setEvaluated(eval(total));
   };
   const setDefault = () => {
     setTotal("0");
@@ -30,7 +32,18 @@ function App() {
   return (
     <CalculatorContainer>
       <Display>
-        <h1 style={{ textAlign: "end", marginTop: "5px", marginRight: "10px" }}>
+        <Total>
+          {evaluated !== 0 ? (
+            <div>
+              {total} {evaluated}
+            </div>
+          ) : (
+            ""
+          )}
+        </Total>
+        <h1
+          style={{ textAlign: "end", marginTop: "-15px", marginRight: "10px" }}
+        >
           {total}
         </h1>
       </Display>
