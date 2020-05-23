@@ -17,28 +17,33 @@ function App() {
   const [evaluated, setEvaluated] = useState(0);
   const [total, setTotal] = useState("0");
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     const last = total[total.length - 1];
     console.log(last.charCodeAt());
     event.target.innerHTML.charCodeAt() === 46 &&
     total[total.length - 1].charCodeAt() !== 46
-      ? setTotal(total.concat(event.target.innerHTML))
+      ? await setTotal(total.concat(event.target.innerHTML))
       : total.length > 15
-      ? setTotal("maximum limit reached")
+      ? await setTotal("maximum limit reached")
       : total.length > 1
       ? total[total.length - 1] === event.target.innerHTML &&
         !(event.target.innerHTML < 10)
         ? console.warn("same")
-        : setTotal(total.concat(event.target.innerHTML))
+        : await setTotal(total.concat(event.target.innerHTML))
       : total === "0" && event.target.innerHTML < 10
-      ? setTotal(event.target.innerHTML)
+      ? await setTotal(event.target.innerHTML)
       : (total[0] < 10 && total[0] > 0) ||
         (!(total[0] < 10) && !(total[0] > 0) && total.length === 1)
-      ? setTotal(total.concat(event.target.innerHTML))
-      : setTotal(event.target.innerHTML);
+      ? await setTotal(total.concat(event.target.innerHTML))
+      : await setTotal(event.target.innerHTML);
   };
   const setTotalValue = () => {
-    setEvaluated(eval(total));
+    try {
+      setEvaluated(eval(total));
+    } catch (err) {
+      console.warn(err);
+      setTotal("SYNTAX ERROR");
+    }
   };
   const setDefault = () => {
     setTotal("0");
