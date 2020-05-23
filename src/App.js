@@ -18,16 +18,31 @@ function App() {
   const [total, setTotal] = useState("0");
 
   const handleClick = (event) => {
-    console.log(typeof event.target.innerHTML);
-    total === "0"
+    const last = total[total.length - 1];
+    console.log(last.charCodeAt());
+    event.target.innerHTML.charCodeAt() === 46 &&
+    total[total.length - 1].charCodeAt() !== 46
+      ? setTotal(total.concat(event.target.innerHTML))
+      : total.length > 15
+      ? setTotal("maximum limit reached")
+      : total.length > 1
+      ? total[total.length - 1] === event.target.innerHTML &&
+        !(event.target.innerHTML < 10)
+        ? console.warn("same")
+        : setTotal(total.concat(event.target.innerHTML))
+      : total === "0" && event.target.innerHTML < 10
       ? setTotal(event.target.innerHTML)
-      : setTotal(total.concat(event.target.innerHTML));
+      : (total[0] < 10 && total[0] > 0) ||
+        (!(total[0] < 10) && !(total[0] > 0) && total.length === 1)
+      ? setTotal(total.concat(event.target.innerHTML))
+      : setTotal(event.target.innerHTML);
   };
   const setTotalValue = () => {
     setEvaluated(eval(total));
   };
   const setDefault = () => {
     setTotal("0");
+    setEvaluated(0);
   };
   return (
     <CalculatorContainer>
@@ -35,7 +50,7 @@ function App() {
         <Total>
           {evaluated !== 0 ? (
             <div>
-              {total} {evaluated}
+              {total} = {evaluated}
             </div>
           ) : (
             ""
