@@ -41,21 +41,27 @@ function App() {
 
 		console.log(equation[equation.length - 1].charCodeAt());
 	};
-	const addNumbers = event => {
+	const addNumbers = async event => {
 		const { innerHTML } = event.target;
 
 		if (equation[0] === '0') {
 			setEquation(innerHTML);
-		} else {
+		} else if (userInput.length < 15) {
 			setEquation(equation.concat(innerHTML));
 		}
-		if (userInput.charCodeAt() < 47) {
+
+		if (userInput.length > 14) {
+			const final = userInput;
+			setUserInput('DIGIT LIMIT MET');
+			await setTimeout(() => setUserInput(final), 3000);
+			// console.log('limit reaches');
+		} else if (userInput.charCodeAt() < 47) {
 			setUserInput(innerHTML);
 		} else {
 			setUserInput(userInput.concat(innerHTML));
 		}
 	};
-	const addSummation = event => {
+	const addSummation = async event => {
 		const { innerHTML } = event.target;
 		if (equation[0] === '0') {
 			setEquation(innerHTML);
@@ -64,12 +70,12 @@ function App() {
 			equation[equation.length - 1] === '/'
 		) {
 			setEquation(equation.concat(innerHTML));
-			console.log('concatinated ');
 		} else if (equation[equation.length - 1].charCodeAt() < 48) {
 			setEquation(equation.replace(/.$/, innerHTML));
 		} else {
 			setEquation(equation.concat(innerHTML));
 		}
+		console.log('here');
 		setUserInput(innerHTML);
 	};
 	const addDecimal = event => {
@@ -77,6 +83,16 @@ function App() {
 		if (!userInput.includes('.')) {
 			setEquation(equation.concat(innerHTML));
 			setUserInput(userInput.concat(innerHTML));
+		}
+	};
+	const Calculate = async () => {
+		try {
+			if (equation[equation.length - 1].charCodeAt() < 48) {
+				setEquation(equation.replace(/.$/, ''));
+			}
+			setTotal(eval(equation));
+		} catch (err) {
+			console.warn(err);
 		}
 	};
 	return (
@@ -88,7 +104,7 @@ function App() {
 					<Total>{equation}</Total>
 				) : (
 					<Total>
-						{equation} = {total}
+						{equation} = {total.toExponential()}
 					</Total>
 				)}
 				<h1
@@ -121,7 +137,7 @@ function App() {
 				</NumbersContainer>
 				<Opp onClick={addSummation}>+</Opp>
 				<Opp onClick={addSummation}>-</Opp>
-				<Equals>=</Equals>
+				<Equals onClick={Calculate}>=</Equals>
 			</Calculator>
 		</CalculatorContainer>
 	);
