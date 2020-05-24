@@ -17,11 +17,12 @@ function App() {
 	const [equation, setEquation] = useState('0');
 	const [total, setTotal] = useState(0);
 	const [userInput, setUserInput] = useState('');
-
+	const [prev, setPrev] = useState('');
 	const setToDefault = () => {
 		setEquation('0');
 		setTotal(0);
 		setUserInput('');
+		setPrev('');
 	};
 	const addMultiplication = event => {
 		const { innerHTML } = event.target;
@@ -38,7 +39,13 @@ function App() {
 			setEquation(innerHTML);
 		}
 		setUserInput(innerHTML);
-		setEquation(equation.concat(innerHTML));
+		if (equation[equation.length - 1].charCodeAt() < 48) {
+			setEquation(prev.concat(innerHTML));
+		} else {
+			setEquation(equation.concat(innerHTML));
+		}
+
+		console.log(equation[equation.length - 1].charCodeAt());
 	};
 	const addNumbers = event => {
 		const { innerHTML } = event.target;
@@ -50,8 +57,11 @@ function App() {
 		}
 		if (userInput.charCodeAt() < 47) {
 			setUserInput(innerHTML);
+			setPrev(prev.concat(innerHTML));
 		} else {
 			setUserInput(userInput.concat(innerHTML));
+
+			setPrev(prev.concat(innerHTML));
 		}
 	};
 	return (
