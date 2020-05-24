@@ -2,37 +2,37 @@ import styled from 'styled-components';
 export const CalculatorContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 420px;
+	width: 300px;
 	background-color: black;
 	margin: auto;
-	margin-top: 25px;
-	height: 150%;
+	margin-top: 7%;
 	border: 1px solid white;
 `;
 export const Calculator = styled.div`
-	width: 404px;
-	height: 510px;
+	width: 289px;
+	height: 360px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: repeat(5, 100px);
+	grid-template-rows: repeat(5, 70px);
 	grid-gap: 1px;
 	margin: auto;
 `;
 export const Display = styled.div`
-	width: 400px;
+	width: 280px;
 	background-color: black;
 	color: white;
 	word-wrap: break-word;
+	height: 10%;
 `;
 export const NumbersContainer = styled.div`
 	grid-column: span 3;
 	display: grid;
 	grid-gap: 1px;
-	grid-template-columns: repeat(auto-fill, 100px);
+	grid-template-columns: repeat(auto-fill, 71px);
 `;
 export const Numbers = styled.button`
 	text-align: center;
-	height: 100px;
+	height: 70px;
 	margin-top: 0px;
 	font-weight: 500;
 	font-size: 45px;
@@ -50,7 +50,7 @@ export const Numbers = styled.button`
 export const Ac = styled.button`
 	grid-column: span 2;
 	text-align: center;
-	height: 100px;
+	height: 70px;
 	margin-top: 0px;
 	background-color: #7d1b27;
 	border: none;
@@ -66,7 +66,7 @@ export const Ac = styled.button`
 export const Zero = styled.button`
 	grid-column: span 2;
 	text-align: center;
-	height: 100px;
+	height: 70px;
 	margin-top: 0px;
 	font-weight: 500;
 	font-size: 45px;

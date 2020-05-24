@@ -102,9 +102,13 @@ function App() {
 					<Total>{total}</Total>
 				) : equation.length > 0 && total === 0 ? (
 					<Total>{equation}</Total>
-				) : (
+				) : total.length > 10 ? (
 					<Total>
 						{equation} = {total.toExponential()}
+					</Total>
+				) : (
+					<Total>
+						{equation} = {total}
 					</Total>
 				)}
 				<h1
