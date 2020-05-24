@@ -17,21 +17,15 @@ function App() {
 	const [equation, setEquation] = useState('0');
 	const [total, setTotal] = useState(0);
 	const [userInput, setUserInput] = useState('');
-	const [prev, setPrev] = useState('');
 	const setToDefault = () => {
 		setEquation('0');
 		setTotal(0);
 		setUserInput('');
-		setPrev('');
 	};
 	const addMultiplication = event => {
 		const { innerHTML } = event.target;
 		if (equation[0] === '0') {
 			setEquation(innerHTML);
-		} else if (equation[equation.length - 1] === '*') {
-			setEquation('/');
-		} else if (equation[equation.length - 1] === '/') {
-			setEquation('*');
 		} else if (
 			equation[equation.length - 1] === '+' ||
 			equation[equation.length - 1] === '-'
@@ -40,7 +34,7 @@ function App() {
 		}
 		setUserInput(innerHTML);
 		if (equation[equation.length - 1].charCodeAt() < 48) {
-			setEquation(prev.concat(innerHTML));
+			setEquation(equation.replace(/.$/, innerHTML));
 		} else {
 			setEquation(equation.concat(innerHTML));
 		}
@@ -57,11 +51,32 @@ function App() {
 		}
 		if (userInput.charCodeAt() < 47) {
 			setUserInput(innerHTML);
-			setPrev(prev.concat(innerHTML));
 		} else {
 			setUserInput(userInput.concat(innerHTML));
-
-			setPrev(prev.concat(innerHTML));
+		}
+	};
+	const addSummation = event => {
+		const { innerHTML } = event.target;
+		if (equation[0] === '0') {
+			setEquation(innerHTML);
+		} else if (
+			equation[equation.length - 1] === '*' ||
+			equation[equation.length - 1] === '/'
+		) {
+			setEquation(equation.concat(innerHTML));
+			console.log('concatinated ');
+		} else if (equation[equation.length - 1].charCodeAt() < 48) {
+			setEquation(equation.replace(/.$/, innerHTML));
+		} else {
+			setEquation(equation.concat(innerHTML));
+		}
+		setUserInput(innerHTML);
+	};
+	const addDecimal = event => {
+		const { innerHTML } = event.target;
+		if (!userInput.includes('.')) {
+			setEquation(equation.concat(innerHTML));
+			setUserInput(userInput.concat(innerHTML));
 		}
 	};
 	return (
@@ -102,10 +117,10 @@ function App() {
 					<Numbers onClick={addNumbers}>2</Numbers>
 					<Numbers onClick={addNumbers}>3</Numbers>
 					<Zero>0</Zero>
-					<Numbers>.</Numbers>
+					<Numbers onClick={addDecimal}>.</Numbers>
 				</NumbersContainer>
-				<Opp>+</Opp>
-				<Opp>-</Opp>
+				<Opp onClick={addSummation}>+</Opp>
+				<Opp onClick={addSummation}>-</Opp>
 				<Equals>=</Equals>
 			</Calculator>
 		</CalculatorContainer>
