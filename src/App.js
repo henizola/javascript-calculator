@@ -1,96 +1,105 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
-  Calculator,
-  Numbers,
-  Display,
-  Ac,
-  Zero,
-  NumbersContainer,
-  Equals,
-  Opp,
-  CalculatorContainer,
-  Multi,
-  Total,
-} from "./App.styles";
+	Calculator,
+	Numbers,
+	Display,
+	Ac,
+	Zero,
+	NumbersContainer,
+	Equals,
+	Opp,
+	CalculatorContainer,
+	Multi,
+	Total,
+} from './App.styles';
 
 function App() {
-  const [evaluated, setEvaluated] = useState(0);
-  const [total, setTotal] = useState("0");
+	const [equation, setEquation] = useState('0');
+	const [total, setTotal] = useState(0);
+	const [userInput, setUserInput] = useState('');
 
-  const handleClick = async (event) => {
-    const last = total[total.length - 1];
-    console.log(last.charCodeAt());
-    event.target.innerHTML.charCodeAt() === 46 &&
-    total[total.length - 1].charCodeAt() !== 46
-      ? await setTotal(total.concat(event.target.innerHTML))
-      : total.length > 15
-      ? await setTotal("maximum limit reached")
-      : total.length > 1
-      ? total[total.length - 1] === event.target.innerHTML &&
-        !(event.target.innerHTML < 10)
-        ? console.warn("same")
-        : await setTotal(total.concat(event.target.innerHTML))
-      : total === "0" && event.target.innerHTML < 10
-      ? await setTotal(event.target.innerHTML)
-      : (total[0] < 10 && total[0] > 0) ||
-        (!(total[0] < 10) && !(total[0] > 0) && total.length === 1)
-      ? await setTotal(total.concat(event.target.innerHTML))
-      : await setTotal(event.target.innerHTML);
-  };
-  const setTotalValue = () => {
-    try {
-      setEvaluated(eval(total));
-    } catch (err) {
-      console.warn(err);
-      setTotal("SYNTAX ERROR");
-    }
-  };
-  const setDefault = () => {
-    setTotal("0");
-    setEvaluated(0);
-  };
-  return (
-    <CalculatorContainer>
-      <Display>
-        <Total>
-          {evaluated !== 0 ? (
-            <div>
-              {total} = {evaluated}
-            </div>
-          ) : (
-            ""
-          )}
-        </Total>
-        <h1
-          style={{ textAlign: "end", marginTop: "-15px", marginRight: "10px" }}
-        >
-          {total}
-        </h1>
-      </Display>
-      <Calculator>
-        <Ac onClick={setDefault}>AC</Ac>
+	const setToDefault = () => {
+		setEquation('0');
+		setTotal(0);
+		setUserInput('');
+	};
+	const addMultiplication = event => {
+		const { innerHTML } = event.target;
+		if (equation[0] === '0') {
+			setEquation(innerHTML);
+		} else if (equation[equation.length - 1] === '*') {
+			setEquation('/');
+		} else if (equation[equation.length - 1] === '/') {
+			setEquation('*');
+		} else if (
+			equation[equation.length - 1] === '+' ||
+			equation[equation.length - 1] === '-'
+		) {
+			setEquation(innerHTML);
+		}
+		setUserInput(innerHTML);
+		setEquation(equation.concat(innerHTML));
+	};
+	const addNumbers = event => {
+		const { innerHTML } = event.target;
 
-        <Multi onClick={handleClick}>*</Multi>
-        <Opp onClick={handleClick}>/</Opp>
-        <NumbersContainer>
-          <Numbers onClick={handleClick}>7</Numbers>
-          <Numbers onClick={handleClick}>8</Numbers>
-          <Numbers onClick={handleClick}>9</Numbers>
-          <Numbers onClick={handleClick}>4</Numbers>
-          <Numbers onClick={handleClick}>5</Numbers>
-          <Numbers onClick={handleClick}>6</Numbers>
-          <Numbers onClick={handleClick}>1</Numbers>
-          <Numbers onClick={handleClick}>2</Numbers>
-          <Numbers onClick={handleClick}>3</Numbers>
-          <Zero onClick={handleClick}>0</Zero>
-          <Numbers onClick={handleClick}>.</Numbers>
-        </NumbersContainer>
-        <Opp onClick={handleClick}>+</Opp>
-        <Opp onClick={handleClick}>-</Opp>
-        <Equals onClick={setTotalValue}>=</Equals>
-      </Calculator>
-    </CalculatorContainer>
-  );
+		if (equation[0] === '0') {
+			setEquation(innerHTML);
+		} else {
+			setEquation(equation.concat(innerHTML));
+		}
+		if (userInput.charCodeAt() < 47) {
+			setUserInput(innerHTML);
+		} else {
+			setUserInput(userInput.concat(innerHTML));
+		}
+	};
+	return (
+		<CalculatorContainer>
+			<Display>
+				{equation[0] === '0' ? (
+					<Total>{total}</Total>
+				) : equation.length > 0 && total === 0 ? (
+					<Total>{equation}</Total>
+				) : (
+					<Total>
+						{equation} = {total}
+					</Total>
+				)}
+				<h1
+					style={{
+						textAlign: 'end',
+						marginTop: '-15px',
+						marginRight: '10px',
+					}}
+				>
+					{userInput}
+				</h1>
+			</Display>
+			<Calculator>
+				<Ac onClick={setToDefault}>AC</Ac>
+
+				<Multi onClick={addMultiplication}>*</Multi>
+				<Opp onClick={addMultiplication}>/</Opp>
+				<NumbersContainer>
+					<Numbers onClick={addNumbers}>7</Numbers>
+					<Numbers onClick={addNumbers}>8</Numbers>
+					<Numbers onClick={addNumbers}>9</Numbers>
+					<Numbers onClick={addNumbers}>4</Numbers>
+					<Numbers onClick={addNumbers}>5</Numbers>
+					<Numbers onClick={addNumbers}>6</Numbers>
+					<Numbers onClick={addNumbers}>1</Numbers>
+					<Numbers onClick={addNumbers}>2</Numbers>
+					<Numbers onClick={addNumbers}>3</Numbers>
+					<Zero>0</Zero>
+					<Numbers>.</Numbers>
+				</NumbersContainer>
+				<Opp>+</Opp>
+				<Opp>-</Opp>
+				<Equals>=</Equals>
+			</Calculator>
+		</CalculatorContainer>
+	);
 }
 
 export default App;
